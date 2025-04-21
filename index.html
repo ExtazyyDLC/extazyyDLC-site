@@ -7,29 +7,45 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Главный контейнер сайта -->
     <div class="container">
-        <!-- Иконка с плавной анимацией -->
         <div class="icon-container">
             <img src="images/E-icon.svg" alt="ExtazyyDLC Icon" class="icon">
         </div>
 
-        <!-- Название и описание -->
         <h1>ExtazyyDLC</h1>
         <p>Активируйте ваш ключ и скачайте клиент.</p>
 
-        <!-- Форма для активации ключа -->
         <div class="activation-form">
             <input type="text" id="activation-key" placeholder="Введите ключ активации">
             <button onclick="activateKey()">Активировать</button>
         </div>
 
-        <!-- Сообщение об ошибке/успехе -->
         <div id="message"></div>
 
-        <!-- Загрузка клиента после активации -->
         <div id="download-section" class="hidden">
             <a href="https://yourserver.com/client/ExtazyyDLCClient.exe" class="download-btn">Скачать клиент</a>
+        </div>
+
+        <hr>
+
+        <div class="generator">
+            <h3>Генерация ключа</h3>
+            <select id="durationSelect">
+                <option value="1D">1 день</option>
+                <option value="7D">7 дней</option>
+                <option value="30D">30 дней</option>
+                <option value="60D">60 дней</option>
+                <option value="90D">90 дней</option>
+                <option value="365D">365 дней</option>
+                <option value="FOREVER">Навсегда</option>
+            </select>
+            <button onclick="generateKey()">Сгенерировать</button>
+            <div id="generatedKey"></div>
+        </div>
+
+        <div class="keylist">
+            <h4>Доступные ключи:</h4>
+            <ul id="keyList"></ul>
         </div>
     </div>
 

@@ -1,98 +1,72 @@
-/* Общие стили */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 20px;
 }
 
 .container {
+    background: white;
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
     text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
-p {
-    color: #666;
-}
-
-.icon-container {
-    margin-bottom: 20px;
 }
 
 .icon {
-    width: 50px;
-    height: 50px;
-    animation: rotateIcon 2s infinite linear;
+    width: 100px;
+    animation: float 2s infinite ease-in-out;
 }
 
-/* Анимация для иконки */
-@keyframes rotateIcon {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
-/* Форма активации */
-.activation-form {
-    margin: 20px 0;
-}
-
-input {
+input, button, select {
     padding: 10px;
-    width: 70%;
-    font-size: 1rem;
-    margin-right: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin: 10px 0;
+    width: 100%;
+    font-size: 16px;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #28a745;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #45a049;
 }
 
-/* Сообщение об ошибке/успехе */
-#message {
-    margin-top: 20px;
-    font-size: 1rem;
-    color: red;
+.success { color: green; }
+.error { color: red; }
+
+.download-btn {
+    display: inline-block;
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
 }
 
-/* Скрыть раздел для скачивания */
+.download-btn:hover {
+    background-color: #0b7dda;
+}
+
 .hidden {
     display: none;
 }
 
-/* Кнопка для скачивания */
-.download-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.download-btn:hover {
-    background-color: #0056b3;
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
 }

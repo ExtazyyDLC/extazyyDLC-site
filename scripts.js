@@ -42,8 +42,8 @@
   </div>
 
   <script>
-    // Список начальных (предустановленных) ключей
-    const keys = [
+    // Получаем ключи из localStorage или создаем начальный список
+    let keys = JSON.parse(localStorage.getItem("extazyy_keys")) || [
       "EXTAZYYDLC-ABC123-1D",
       "EXTAZYYDLC-X9K8L1-7D",
       "EXTAZYYDLC-QWERTY-30D",
@@ -52,6 +52,10 @@
       "EXTAZYYDLC-MNBVCX-365D",
       "EXTAZYYDLC-PLMOKN-FOREVER"
     ];
+
+    function saveKeys() {
+      localStorage.setItem("extazyy_keys", JSON.stringify(keys));
+    }
 
     function updateKeyList() {
       const list = document.getElementById("keyList");
@@ -72,7 +76,8 @@
       if (index !== -1) {
         const duration = inputKey.split("-")[2];
         const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
-        keys.splice(index, 1); // Удалить использованный ключ
+        keys.splice(index, 1); // Удалить ключ
+        saveKeys();
         updateKeyList();
         message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
         downloadLink.style.display = "inline-block";
@@ -91,11 +96,12 @@
       }
       const newKey = `EXTAZYYDLC-${randomPart}-${duration}`;
       keys.push(newKey);
+      saveKeys();
       updateKeyList();
       document.getElementById("generatedKey").innerHTML = `<p class="success">Сгенерирован ключ: <b>${newKey}</b></p>`;
     }
 
-    // Показать ключи при загрузке страницы
+    // Инициализация
     updateKeyList();
   </script>
 </body>
