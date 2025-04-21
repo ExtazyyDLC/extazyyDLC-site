@@ -14,6 +14,7 @@ function saveKeys() {
 
 function updateKeyList() {
   const list = document.getElementById("keyList");
+  if (!list) return;
   list.innerHTML = "";
   keys.forEach(key => {
     const li = document.createElement("li");
@@ -31,7 +32,7 @@ function activateKey() {
   if (index !== -1) {
     const duration = inputKey.split("-")[2];
     const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
-    keys.splice(index, 1); // Удалить ключ
+    keys.splice(index, 1); // удалить использованный ключ
     saveKeys();
     updateKeyList();
     message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
@@ -56,5 +57,5 @@ function generateKey() {
   document.getElementById("generatedKey").innerHTML = `<p class="success">Сгенерирован ключ: <b>${newKey}</b></p>`;
 }
 
-// Инициализация
+// При загрузке страницы -- обновляем список ключей
 document.addEventListener("DOMContentLoaded", updateKeyList);
