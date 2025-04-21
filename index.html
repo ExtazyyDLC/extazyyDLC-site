@@ -1,48 +1,32 @@
-function generateKeysSet() {
-    const durations = ["1D", "7D", "30D", "60D", "90D", "365D", "FOREVER"];
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let keySet = [];
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExtazyyDLC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="icon-container">
+            <img src="images/E-icon.svg" alt="ExtazyyDLC Icon" class="icon">
+        </div>
 
-    durations.forEach(duration => {
-        for (let i = 0; i < 10; i++) {
-            let randomPart = '';
-            for (let j = 0; j < 6; j++) {
-                randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            keySet.push(`EXTAZYYDLC-${randomPart}-${duration}`);
-        }
-    });
+        <h1>ExtazyyDLC</h1>
+        <p>Активируйте ваш ключ и скачайте клиент.</p>
 
-    return keySet;
-}
+        <div class="activation-form">
+            <input type="text" id="activation-key" placeholder="Введите ключ активации">
+            <button onclick="activateKey()">Активировать</button>
+        </div>
 
-// Инициализация ключей (один раз)
-if (!localStorage.getItem("extazyy_keys")) {
-    const initialKeys = generateKeysSet();
-    localStorage.setItem("extazyy_keys", JSON.stringify(initialKeys));
-}
+        <div id="message"></div>
 
-let keys = JSON.parse(localStorage.getItem("extazyy_keys"));
+        <div id="download-section" class="hidden">
+            <a href="https://yourserver.com/client/ExtazyyDLCClient.exe" class="download-btn">Скачать клиент</a>
+        </div>
+    </div>
 
-function saveKeys() {
-    localStorage.setItem("extazyy_keys", JSON.stringify(keys));
-}
-
-function activateKey() {
-    const inputKey = document.getElementById("activation-key").value.trim().toUpperCase();
-    const message = document.getElementById("message");
-    const downloadSection = document.getElementById("download-section");
-
-    const index = keys.indexOf(inputKey);
-    if (index !== -1) {
-        const duration = inputKey.split("-")[2];
-        const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
-        keys.splice(index, 1); // удалить использованный ключ
-        saveKeys();
-        message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
-        downloadSection.classList.remove("hidden");
-    } else {
-        message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
-        downloadSection.classList.add("hidden");
-    }
-}
+    <script src="scripts.js"></script>
+</body>
+</html>
