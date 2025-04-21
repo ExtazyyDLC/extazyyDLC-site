@@ -1,45 +1,29 @@
-let keys = JSON.parse(localStorage.getItem("extazyy_keys")) || [
-  "EXTAZYYDLC-ABC123-1D",
-  "EXTAZYYDLC-X9K8L1-7D",
-  "EXTAZYYDLC-QWERTY-30D",
-  "EXTAZYYDLC-ASDFGH-60D",
-  "EXTAZYYDLC-ZXCVBN-90D",
-  "EXTAZYYDLC-MNBVCX-365D",
-  "EXTAZYYDLC-PLMOKN-FOREVER"
-];
+let keys = [
+  // 1 день
+  "EXTAZYYDLC-A1B2C3-1D", "EXTAZYYDLC-D4E5F6-1D", "EXTAZYYDLC-G7H8I9-1D",
+  "EXTAZYYDLC-J1K2L3-1D", "EXTAZYYDLC-M4N5O6-1D", "EXTAZYYDLC-P7Q8R9-1D",
+  "EXTAZYYDLC-S1T2U3-1D", "EXTAZYYDLC-V4W5X6-1D", "EXTAZYYDLC-Y7Z8A9-1D",
+  "EXTAZYYDLC-B1C2D3-1D",
 
-function saveKeys() {
-  localStorage.setItem("extazyy_keys", JSON.stringify(keys));
-}
+  // 7 дней
+  "EXTAZYYDLC-E1F2G3-7D", "EXTAZYYDLC-H4I5J6-7D", "EXTAZYYDLC-K7L8M9-7D",
+  "EXTAZYYDLC-N1O2P3-7D", "EXTAZYYDLC-Q4R5S6-7D", "EXTAZYYDLC-T7U8V9-7D",
+  "EXTAZYYDLC-W1X2Y3-7D", "EXTAZYYDLC-Z4A5B6-7D", "EXTAZYYDLC-C7D8E9-7D",
+  "EXTAZYYDLC-F1G2H3-7D",
 
-function activateKey() {
-  const inputKey = document.getElementById("activation-key").value.trim().toUpperCase();
-  const message = document.getElementById("message");
-  const downloadSection = document.getElementById("download-section");
+  // 30 дней
+  "EXTAZYYDLC-I4J5K6-30D", "EXTAZYYDLC-L7M8N9-30D", "EXTAZYYDLC-O1P2Q3-30D",
+  "EXTAZYYDLC-R4S5T6-30D", "EXTAZYYDLC-U7V8W9-30D", "EXTAZYYDLC-X1Y2Z3-30D",
+  "EXTAZYYDLC-A4B5C6-30D", "EXTAZYYDLC-D7E8F9-30D", "EXTAZYYDLC-G1H2I3-30D",
+  "EXTAZYYDLC-J4K5L6-30D",
 
-  const index = keys.indexOf(inputKey);
-  if (index !== -1) {
-    const duration = inputKey.split("-")[2];
-    const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
-    keys.splice(index, 1); // удалить использованный ключ
-    saveKeys();
-    message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
-    downloadSection.classList.remove("hidden");
-  } else {
-    message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
-    downloadSection.classList.add("hidden");
-  }
-}
+  // 60 дней
+  "EXTAZYYDLC-M7N8O9-60D", "EXTAZYYDLC-P1Q2R3-60D", "EXTAZYYDLC-S4T5U6-60D",
+  "EXTAZYYDLC-V7W8X9-60D", "EXTAZYYDLC-Y1Z2A3-60D", "EXTAZYYDLC-B4C5D6-60D",
+  "EXTAZYYDLC-E7F8G9-60D", "EXTAZYYDLC-H1I2J3-60D", "EXTAZYYDLC-K4L5M6-60D",
+  "EXTAZYYDLC-N7O8P9-60D",
 
-function generateKey() {
-  const duration = document.getElementById("durationSelect").value;
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let randomPart = '';
-  for (let i = 0; i < 6; i++) {
-    randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  const newKey = `EXTAZYYDLC-${randomPart}-${duration}`;
-  keys.push(newKey);
-  saveKeys();
-  document.getElementById("generatedKey").innerHTML = `<p class="success">Сгенерирован ключ: <b>${newKey}</b></p>`;
-}
+  // 90 дней
+  "EXTAZYYDLC-Q1R2S3-90D", "EXTAZYYDLC-T4U5V6-90D", "EXTAZYYDLC-W7X8Y9-90D",
+  "EXTAZYYDLC-Z1A2B3-90D", "EXTAZYYDLC-C4D5E6-90D", "EXTAZYYDLC-F7G8H9-90D",
+  "EXTAZYYDLC

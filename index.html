@@ -25,7 +25,7 @@
         .icon {
             width: 100px;
         }
-        input, button, select {
+        input, button {
             padding: 10px;
             margin: 10px 0;
             width: 100%;
@@ -69,23 +69,6 @@
 
         <div id="download-section" class="hidden">
             <a href="https://yourserver.com/client/ExtazyyDLCClient.exe" class="download-btn">Скачать клиент</a>
-        </div>
-
-        <hr>
-
-        <div class="generator">
-            <h3>Генерация ключа</h3>
-            <select id="durationSelect">
-                <option value="1D">1 день</option>
-                <option value="7D">7 дней</option>
-                <option value="30D">30 дней</option>
-                <option value="60D">60 дней</option>
-                <option value="90D">90 дней</option>
-                <option value="365D">365 дней</option>
-                <option value="FOREVER">Навсегда</option>
-            </select>
-            <button onclick="generateKey()">Сгенерировать</button>
-            <div id="generatedKey"></div>
         </div>
     </div>
 
