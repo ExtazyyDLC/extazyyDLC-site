@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Login/Register Button at the top right -->
+    <div class="login-register-btn-container">
+        <button class="login-register-btn" onclick="showLoginForm()">Login / Register</button>
+    </div>
+
     <div class="container">
         <div class="icon-container">
             <img src="images/E-icon.svg" alt="ExtazyyDLC Icon" class="icon">
@@ -14,10 +19,6 @@
 
         <h1>ExtazyyDLC</h1>
         <p>Активируйте ваш ключ и скачайте клиент.</p>
-
-        <div class="auth-buttons">
-            <button onclick="showLoginForm()">Login / Register</button>
-        </div>
 
         <div class="activation-form hidden" id="activation-form">
             <input type="text" id="activation-key" placeholder="Введите ключ активации">
