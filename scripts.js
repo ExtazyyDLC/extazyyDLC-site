@@ -2,53 +2,101 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Активация ключа</title>
+  <title>Активация и генерация ключей</title>
   <style>
     body { font-family: Arial; background: #f4f4f4; padding: 20px; }
-    input, button { padding: 10px; margin: 10px 0; width: 100%; }
+    input, button, select { padding: 10px; margin: 10px 0; width: 100%; }
     #downloadLink { display: none; margin-top: 20px; }
     .success { color: green; }
     .error { color: red; }
+    .container { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
   </style>
 </head>
 <body>
-  <h2>Активация ключа</h2>
-  <input type="text" id="keyInput" placeholder="Введите ключ" />
-  <button onclick="activateKey()">Активировать</button>
-  <div id="message"></div>
-  <a id="downloadLink" href="https://example.com/yourfile.zip" download>Скачать файл</a>
+  <div class="container">
+    <h2>Активация ключа</h2>
+    <input type="text" id="keyInput" placeholder="Введите ключ" />
+    <button onclick="activateKey()">Активировать</button>
+    <div id="message"></div>
+    <a id="downloadLink" href="https://example.com/yourfile.zip" download>Скачать файл</a>
+  </div>
+
+  <div class="container">
+    <h2>Генерация ключей</h2>
+    <select id="durationSelect">
+      <option value="1D">1 день</option>
+      <option value="7D">7 дней</option>
+      <option value="30D">30 дней</option>
+      <option value="60D">60 дней</option>
+      <option value="90D">90 дней</option>
+      <option value="365D">365 дней</option>
+      <option value="FOREVER">Навсегда</option>
+    </select>
+    <button onclick="generateKey()">Сгенерировать ключ</button>
+    <div id="generatedKey"></div>
+  </div>
+
+  <div class="container">
+    <h3>Список доступных ключей</h3>
+    <ul id="keyList"></ul>
+  </div>
 
   <script>
-    const keys = {
-      "1d": ["1DKEY1", "1DKEY2", "1DKEY3", "1DKEY4", "1DKEY5", "1DKEY6", "1DKEY7", "1DKEY8", "1DKEY9", "1DKEY10"],
-      "7d": ["7DKEY1", "7DKEY2", "7DKEY3", "7DKEY4", "7DKEY5", "7DKEY6", "7DKEY7", "7DKEY8", "7DKEY9", "7DKEY10"],
-      "30d": ["30DKEY1", "30DKEY2", "30DKEY3", "30DKEY4", "30DKEY5", "30DKEY6", "30DKEY7", "30DKEY8", "30DKEY9", "30DKEY10"],
-      "60d": ["60DKEY1", "60DKEY2", "60DKEY3", "60DKEY4", "60DKEY5", "60DKEY6", "60DKEY7", "60DKEY8", "60DKEY9", "60DKEY10"],
-      "90d": ["90DKEY1", "90DKEY2", "90DKEY3", "90DKEY4", "90DKEY5", "90DKEY6", "90DKEY7", "90DKEY8", "90DKEY9", "90DKEY10"],
-      "365d": ["365DKEY1", "365DKEY2", "365DKEY3", "365DKEY4", "365DKEY5", "365DKEY6", "365DKEY7", "365DKEY8", "365DKEY9", "365DKEY10"],
-      "forever": ["FOREVER1", "FOREVER2", "FOREVER3", "FOREVER4", "FOREVER5", "FOREVER6", "FOREVER7", "FOREVER8", "FOREVER9", "FOREVER10"]
-    };
+    // Список начальных (предустановленных) ключей
+    const keys = [
+      "EXTAZYYDLC-ABC123-1D",
+      "EXTAZYYDLC-X9K8L1-7D",
+      "EXTAZYYDLC-QWERTY-30D",
+      "EXTAZYYDLC-ASDFGH-60D",
+      "EXTAZYYDLC-ZXCVBN-90D",
+      "EXTAZYYDLC-MNBVCX-365D",
+      "EXTAZYYDLC-PLMOKN-FOREVER"
+    ];
+
+    function updateKeyList() {
+      const list = document.getElementById("keyList");
+      list.innerHTML = "";
+      keys.forEach(key => {
+        const li = document.createElement("li");
+        li.textContent = key;
+        list.appendChild(li);
+      });
+    }
 
     function activateKey() {
       const inputKey = document.getElementById("keyInput").value.trim().toUpperCase();
-      let found = false;
+      const message = document.getElementById("message");
+      const downloadLink = document.getElementById("downloadLink");
 
-      for (const group in keys) {
-        const index = keys[group].indexOf(inputKey);
-        if (index !== -1) {
-          keys[group].splice(index, 1); // Удаляем использованный ключ
-          found = true;
-          document.getElementById("message").innerHTML = `<p class="success">Ключ активирован! Доступ на ${group.replace("d", " дней")}.</p>`;
-          document.getElementById("downloadLink").style.display = "inline-block";
-          break;
-        }
-      }
-
-      if (!found) {
-        document.getElementById("message").innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
-        document.getElementById("downloadLink").style.display = "none";
+      const index = keys.indexOf(inputKey);
+      if (index !== -1) {
+        const duration = inputKey.split("-")[2];
+        const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
+        keys.splice(index, 1); // Удалить использованный ключ
+        updateKeyList();
+        message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
+        downloadLink.style.display = "inline-block";
+      } else {
+        message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
+        downloadLink.style.display = "none";
       }
     }
+
+    function generateKey() {
+      const duration = document.getElementById("durationSelect").value;
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let randomPart = '';
+      for (let i = 0; i < 6; i++) {
+        randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      const newKey = `EXTAZYYDLC-${randomPart}-${duration}`;
+      keys.push(newKey);
+      updateKeyList();
+      document.getElementById("generatedKey").innerHTML = `<p class="success">Сгенерирован ключ: <b>${newKey}</b></p>`;
+    }
+
+    // Показать ключи при загрузке страницы
+    updateKeyList();
   </script>
 </body>
 </html>
