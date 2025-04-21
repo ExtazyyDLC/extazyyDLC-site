@@ -104,3 +104,42 @@ ul {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Login/Register Button at the top right */
+.login-register-btn-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.login-register-btn {
+    padding: 10px 20px;
+    background-color: #FF4081;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    animation: pulse 1.5s infinite;
+}
+
+.login-register-btn:hover {
+    background-color: #F50057;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        background-color: #FF4081;
+    }
+    50% {
+        transform: scale(1.1);
+        background-color: #F50057;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #FF4081;
+    }
+}
+
