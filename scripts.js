@@ -12,17 +12,6 @@ function saveKeys() {
   localStorage.setItem("extazyy_keys", JSON.stringify(keys));
 }
 
-function updateKeyList() {
-  const list = document.getElementById("keyList");
-  if (!list) return;
-  list.innerHTML = "";
-  keys.forEach(key => {
-    const li = document.createElement("li");
-    li.textContent = key;
-    list.appendChild(li);
-  });
-}
-
 function activateKey() {
   const inputKey = document.getElementById("activation-key").value.trim().toUpperCase();
   const message = document.getElementById("message");
@@ -34,7 +23,6 @@ function activateKey() {
     const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
     keys.splice(index, 1); // удалить использованный ключ
     saveKeys();
-    updateKeyList();
     message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
     downloadSection.classList.remove("hidden");
   } else {
@@ -53,9 +41,5 @@ function generateKey() {
   const newKey = `EXTAZYYDLC-${randomPart}-${duration}`;
   keys.push(newKey);
   saveKeys();
-  updateKeyList();
   document.getElementById("generatedKey").innerHTML = `<p class="success">Сгенерирован ключ: <b>${newKey}</b></p>`;
 }
-
-// При загрузке страницы -- обновляем список ключей
-document.addEventListener("DOMContentLoaded", updateKeyList);
