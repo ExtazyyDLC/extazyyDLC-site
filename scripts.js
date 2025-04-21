@@ -1,39 +1,34 @@
-// Список доступных ключей
-let keys = [
-    "EXTAZYYDLC-ABCD-1D", "EXTAZYYDLC-EFGH-1D", "EXTAZYYDLC-IJKL-1D", "EXTAZYYDLC-MNOP-1D", "EXTAZYYDLC-QRST-1D",
-    "EXTAZYYDLC-UVWX-1D", "EXTAZYYDLC-YZAB-1D", "EXTAZYYDLC-CDEF-1D", "EXTAZYYDLC-GHIJ-1D", "EXTAZYYDLC-KLMN-1D",
-    "EXTAZYYDLC-OPQR-7D", "EXTAZYYDLC-STUV-7D", "EXTAZYYDLC-WXYZ-7D", "EXTAZYYDLC-ABEF-7D", "EXTAZYYDLC-CDGH-7D",
-    "EXTAZYYDLC-IJKM-7D", "EXTAZYYDLC-NOPQ-7D", "EXTAZYYDLC-RSTU-7D", "EXTAZYYDLC-VWXY-7D", "EXTAZYYDLC-ZABC-7D",
-    "EXTAZYYDLC-DEFG-30D", "EXTAZYYDLC-HIJK-30D", "EXTAZYYDLC-LMNO-30D", "EXTAZYYDLC-PQRS-30D", "EXTAZYYDLC-TUVW-30D",
-    "EXTAZYYDLC-XYZA-30D", "EXTAZYYDLC-BCDE-30D", "EXTAZYYDLC-FGHI-30D", "EXTAZYYDLC-JKLM-30D", "EXTAZYYDLC-NOPQ-30D"
+// Готовые ключи (рандомные и с разными сроками)
+let validKeys = [
+  "EXTAZYYDLC-AB12C3-1D", "EXTAZYYDLC-XZ91PK-1D", "EXTAZYYDLC-MNP45T-1D",
+  "EXTAZYYDLC-ZXCVBN-7D", "EXTAZYYDLC-PLMOKN-7D", "EXTAZYYDLC-QWERTY-30D",
+  "EXTAZYYDLC-ASDFGH-30D", "EXTAZYYDLC-KJHGFD-60D", "EXTAZYYDLC-LKJHGF-90D",
+  "EXTAZYYDLC-UIYTRE-365D", "EXTAZYYDLC-FDREWT-FOREVER"
 ];
 
-// Сохраняем в localStorage только один раз при первом заходе
-if (!localStorage.getItem("extazyy_keys")) {
-    localStorage.setItem("extazyy_keys", JSON.stringify(keys));
-} else {
-    keys = JSON.parse(localStorage.getItem("extazyy_keys"));
-}
+// Загружаем сохранённые ключи (если есть)
+const saved = localStorage.getItem("extazyy_keys");
+if (saved) validKeys = JSON.parse(saved);
 
 function saveKeys() {
-    localStorage.setItem("extazyy_keys", JSON.stringify(keys));
+  localStorage.setItem("extazyy_keys", JSON.stringify(validKeys));
 }
 
 function activateKey() {
-    const inputKey = document.getElementById("activation-key").value.trim().toUpperCase();
-    const message = document.getElementById("message");
-    const downloadSection = document.getElementById("download-section");
+  const keyInput = document.getElementById("activation-key").value.trim().toUpperCase();
+  const message = document.getElementById("message");
+  const download = document.getElementById("download-section");
 
-    const index = keys.indexOf(inputKey);
-    if (index !== -1) {
-        const duration = inputKey.split("-")[2];
-        const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
-        keys.splice(index, 1); // удалить ключ
-        saveKeys();
-        message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
-        downloadSection.classList.remove("hidden");
-    } else {
-        message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
-        downloadSection.classList.add("hidden");
-    }
+  if (validKeys.includes(keyInput)) {
+    const duration = keyInput.split("-")[2];
+    const readable = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
+    validKeys = validKeys.filter(k => k !== keyInput);
+    saveKeys();
+
+    message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${readable}.</p>`;
+    download.classList.remove("hidden");
+  } else {
+    message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
+    download.classList.add("hidden");
+  }
 }

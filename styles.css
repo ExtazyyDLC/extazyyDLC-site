@@ -1,73 +1,74 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
 }
 
 .container {
-    background: white;
-    max-width: 500px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-    text-align: center;
+  background: white;
+  max-width: 500px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  text-align: center;
 }
 
 .icon {
-    width: 100px;
-    animation: float 2s infinite ease-in-out;
+  width: 100px;
+  margin-bottom: 20px;
+  animation: float 2s infinite ease-in-out;
 }
 
 @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 input, button {
-    padding: 10px;
-    margin: 10px 0;
-    width: 100%;
-    font-size: 16px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  font-size: 16px;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .success {
-    color: green;
-    margin-top: 10px;
+  color: green;
+  margin-top: 10px;
 }
 
 .error {
-    color: red;
-    margin-top: 10px;
+  color: red;
+  margin-top: 10px;
 }
 
 .download-btn {
-    display: inline-block;
-    background-color: #2196F3;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 15px;
+  display: inline-block;
+  background-color: #2196F3;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 15px;
 }
 
 .download-btn:hover {
-    background-color: #0b7dda;
+  background-color: #0b7dda;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
