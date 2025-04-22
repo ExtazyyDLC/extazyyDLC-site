@@ -5,280 +5,249 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auth System</title>
     <style>
-        /* Глобальні стилі */
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #45a049;
-            --error-color: #c62828;
-            --success-color: #2e7d32;
+        /* Глобальные стили */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(45deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
             min-height: 100vh;
-            position: relative;
-        }
-
-        /* Навігація */
-        .navbar {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-        }
-
-        .login-btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            background: var(--secondary-color);
-        }
-
-        /* Меню авторизації */
-        .auth-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
+            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999;
         }
 
-        .auth-box {
+        /* Контейнер авторизации */
+        .auth-container {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            width: 400px;
-            transform: scale(0.95);
-            animation: popIn 0.4s ease-out forwards;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes popIn {
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .auth-container:hover {
+            transform: translateY(-5px);
         }
 
-        .auth-box h2 {
+        /* Заголовок */
+        .auth-header {
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h2 {
+            color: #1a1a1a;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Форма */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
 
         .input-group {
-            margin-bottom: 25px;
             position: relative;
         }
 
         .input-group input {
             width: 100%;
-            padding: 14px 20px;
+            padding: 0.8rem 1rem;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
 
         .input-group input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px rgba(76,175,80,0.2);
             outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
         }
 
+        /* Кнопки */
         .auth-actions {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .auth-btn {
-            flex: 1;
-            padding: 14px;
+            padding: 0.8rem;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 0.8rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .auth-btn.primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: #4CAF50;
             color: white;
         }
 
         .auth-btn.secondary {
             background: #f0f0f0;
-            color: #666;
+            color: #444;
         }
 
         .auth-btn:hover {
+            opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Повідомлення */
+        /* Сообщения */
         #message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            margin-top: 1.5rem;
             display: none;
             text-align: center;
+            font-size: 0.9rem;
         }
 
         #message.success {
             background: #e8f5e9;
-            color: var(--success-color);
+            color: #2e7d32;
             border: 1px solid #a5d6a7;
         }
 
         #message.error {
             background: #ffebee;
-            color: var(--error-color);
+            color: #c62828;
             border: 1px solid #ef9a9a;
         }
 
-        /* Анімація букви E */
-        .e-animation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: float 3s ease-in-out infinite;
+        /* Иконки */
+        .toggle-auth {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
         }
 
-        @keyframes float {
-            0% { transform: translate(-50%, -55%); }
-            50% { transform: translate(-50%, -45%); }
-            100% { transform: translate(-50%, -55%); }
-        }
-
-        .e-letter {
-            font-size: 100px;
-            color: var(--primary-color);
-            font-weight: bold;
-            text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .toggle-auth span {
+            color: #4CAF50;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         @media (max-width: 480px) {
-            .auth-box {
-                width: 90%;
-                padding: 25px;
-            }
-            
-            .e-letter {
-                font-size: 70px;
+            .auth-container {
+                padding: 1.5rem;
+                border-radius: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Кнопка відкриття меню -->
-    <nav class="navbar">
-        <button class="login-btn">Вхід / Реєстрація</button>
-    </nav>
-
-    <!-- Анімація букви E -->
-    <div class="e-animation">
-        <div class="e-letter">E</div>
-    </div>
-
-    <!-- Меню авторизації -->
-    <div class="auth-menu" id="authMenu">
-        <div class="auth-box">
-            <h2>Авторизація</h2>
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Логін">
-            </div>
-            <div class="input-group">
-                <input type="password" id="password" placeholder="Пароль">
-            </div>
-            <div class="auth-actions">
-                <button class="auth-btn primary" onclick="register()">Реєстрація</button>
-                <button class="auth-btn secondary" onclick="login()">Вхід</button>
-            </div>
-            <div id="message"></div>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Добро пожаловать! 👋</h2>
+            <p>Пожалуйста, войдите в свой аккаунт</p>
         </div>
+
+        <form class="auth-form" onsubmit="event.preventDefault()">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Имя пользователя" required>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Пароль" required>
+            </div>
+
+            <div class="auth-actions">
+                <button class="auth-btn primary" onclick="login()">Войти</button>
+                <button class="auth-btn secondary" onclick="register()">Зарегистрироваться</button>
+            </div>
+        </form>
+
+        <div class="toggle-auth">
+            Нет аккаунта? <span onclick="toggleAuth()">Создать аккаунт</span>
+        </div>
+
+        <div id="message"></div>
     </div>
 
     <script>
-        // Управління меню
-        document.querySelector('.login-btn').addEventListener('click', () => {
-            document.getElementById('authMenu').style.display = 'flex';
-        });
+        let isLogin = true;
 
-        // Закриття меню при кліку поза формою
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('authMenu')) {
-                document.getElementById('authMenu').style.display = 'none';
+        function toggleAuth() {
+            const header = document.querySelector('.auth-header');
+            const loginBtn = document.querySelector('.auth-btn.primary');
+            const registerBtn = document.querySelector('.auth-btn.secondary');
+            const toggleText = document.querySelector('.toggle-auth span');
+            
+            isLogin = !isLogin;
+            
+            if(isLogin) {
+                header.querySelector('h2').textContent = 'Добро пожаловать! 👋';
+                header.querySelector('p').textContent = 'Пожалуйста, войдите в свой аккаунт';
+                loginBtn.textContent = 'Войти';
+                registerBtn.textContent = 'Зарегистрироваться';
+                toggleText.textContent = 'Создать аккаунт';
+            } else {
+                header.querySelector('h2').textContent = 'Создать аккаунт 🚀';
+                header.querySelector('p').textContent = 'Начните свое путешествие с нами';
+                loginBtn.textContent = 'Зарегистрироваться';
+                registerBtn.textContent = 'Уже есть аккаунт';
+                toggleText.textContent = 'Войти в аккаунт';
             }
         }
 
-        // Реєстрація
+        function showMessage(text, isSuccess) {
+            const message = document.getElementById('message');
+            message.textContent = text;
+            message.className = isSuccess ? 'success' : 'error';
+            message.style.display = 'block';
+            setTimeout(() => message.style.display = 'none', 3000);
+        }
+
         function register() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const message = document.getElementById('message');
 
-            if (!username || !password) {
-                message.innerText = 'Заповніть всі поля!';
-                message.className = 'error';
-                message.style.display = 'block';
+            if(!username || !password) {
+                showMessage('Заполните все поля!', false);
                 return;
             }
 
-            if (!localStorage.getItem('user_' + username)) {
-                localStorage.setItem('user_' + username, password);
-                message.innerText = 'Реєстрація успішна!';
-                message.className = 'success';
-                message.style.display = 'block';
-                setTimeout(() => location.reload(), 1500);
-            } else {
-                message.innerText = 'Користувач вже існує!';
-                message.className = 'error';
-                message.style.display = 'block';
+            if(localStorage.getItem('user_' + username)) {
+                showMessage('Пользователь уже существует!', false);
+                return;
             }
+
+            localStorage.setItem('user_' + username, password);
+            showMessage('Регистрация успешна!', true);
+            setTimeout(() => window.location.reload(), 1500);
         }
 
-        // Логін
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const storedPassword = localStorage.getItem('user_' + username);
-            const message = document.getElementById('message');
+            const storedPass = localStorage.getItem('user_' + username);
 
-            if (storedPassword && storedPassword === password) {
-                localStorage.setItem('extazyyUser', username);
-                message.innerText = 'Успішний вхід!';
-                message.className = 'success';
-                message.style.display = 'block';
+            if(storedPass && storedPass === password) {
+                showMessage('Успешный вход!', true);
                 setTimeout(() => window.location.href = 'cabinet.html', 1000);
             } else {
-                message.innerText = 'Невірні дані!';
-                message.className = 'error';
-                message.style.display = 'block';
+                showMessage('Неверные данные!', false);
             }
         }
     </script>
