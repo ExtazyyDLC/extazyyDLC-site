@@ -1,49 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExtazyyDLC</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Активация ключа</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+    input, button { padding: 10px; margin: 10px 0; width: 100%; }
+    #downloadLink { display: none; margin-top: 20px; }
+    .success { color: green; }
+    .error { color: red; }
+    .container { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+  </style>
 </head>
 <body>
-    <!-- Login/Register Button at the top right -->
-    <div class="login-register-btn-container">
-        <button class="login-register-btn" onclick="showLoginForm()">Login / Register</button>
-    </div>
+  <div class="container">
+    <h2>Активация ключа</h2>
+    <input type="text" id="keyInput" placeholder="Введите ключ" />
+    <button onclick="activateKey()">Активировать</button>
+    <div id="message"></div>
+    <a id="downloadLink" href="https://example.com/yourfile.zip" download>Скачать файл</a>
+  </div>
 
-    <div class="container">
-        <div class="icon-container">
-            <img src="images/E-icon.svg" alt="ExtazyyDLC Icon" class="icon">
-        </div>
+  <div class="container">
+    <h3>Список доступных ключей</h3>
+    <ul id="keyList"></ul>
+  </div>
 
-        <h1>ExtazyyDLC</h1>
-        <p>Активируйте ваш ключ и скачайте клиент.</p>
-
-        <div class="activation-form hidden" id="activation-form">
-            <input type="text" id="activation-key" placeholder="Введите ключ активации">
-            <button onclick="activateKey()">Активировать</button>
-            <div id="message"></div>
-        </div>
-
-        <div id="download-section" class="hidden">
-            <a href="https://yourserver.com/client/ExtazyyDLCClient.exe" class="download-btn">Скачать клиент</a>
-        </div>
-    </div>
-
-    <!-- Login/Register Modal -->
-    <div id="auth-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close" onclick="closeAuthModal()">&times;</span>
-            <h2>Войти или зарегистрироваться</h2>
-            <input type="text" id="username" placeholder="Имя пользователя">
-            <input type="password" id="password" placeholder="Пароль">
-            <button onclick="loginUser()">Войти</button>
-            <button onclick="registerUser()">Зарегистрироваться</button>
-            <div id="auth-message"></div>
-        </div>
-    </div>
-
-    <script src="scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
