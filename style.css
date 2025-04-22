@@ -33,9 +33,9 @@
         .login-btn {
             background: var(--primary-color);
             color: white;
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
@@ -64,14 +64,14 @@
 
         .auth-box {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            width: 320px;
+            width: 280px;
             max-width: calc(100% - 40px);
             margin: 20px;
             animation: popIn 0.3s ease-out forwards;
-            position: relative;
+            text-align: center;
         }
 
         @keyframes popIn {
@@ -79,24 +79,39 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .auth-box h2 {
-            text-align: center;
+        .welcome-header {
+            margin-bottom: 15px;
+        }
+
+        .welcome-header h1 {
+            font-size: 18px;
             color: #333;
-            margin-bottom: 20px;
-            font-size: 20px;
+            margin: 0 0 10px 0;
+        }
+
+        .e-letter {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px 14px;
+            padding: 8px 12px;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 5px;
+            font-size: 13px;
             transition: all 0.2s ease;
         }
 
@@ -108,17 +123,17 @@
 
         .auth-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 15px;
             width: 100%;
         }
 
         .auth-btn {
             flex: 1;
-            padding: 10px;
+            padding: 8px;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 5px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -140,12 +155,12 @@
         }
 
         #message {
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 12px;
             display: none;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             width: 100%;
         }
 
@@ -161,40 +176,14 @@
             border: 1px solid #ef9a9a;
         }
 
-        .e-animation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: float 3s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes float {
-            0% { transform: translate(-50%, -55%); }
-            50% { transform: translate(-50%, -45%); }
-            100% { transform: translate(-50%, -55%); }
-        }
-
-        .e-letter {
-            font-size: 80px;
-            color: var(--primary-color);
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
         @media (max-width: 480px) {
             .auth-box {
                 padding: 20px;
             }
             
-            .e-letter {
-                font-size: 60px;
-            }
-            
             .login-btn {
-                padding: 10px 20px;
-                font-size: 13px;
+                padding: 8px 16px;
+                font-size: 12px;
             }
         }
     </style>
@@ -204,23 +193,26 @@
         <button class="login-btn">Вхід / Реєстрація</button>
     </nav>
 
-    <div class="e-animation">
-        <div class="e-letter">E</div>
-    </div>
-
     <div class="auth-menu" id="authMenu">
         <div class="auth-box">
-            <h2>Авторизація</h2>
+            <div class="welcome-header">
+                <h1>ExtazyyDLC Welcome</h1>
+                <div class="e-letter">E</div>
+            </div>
+            
             <div class="input-group">
                 <input type="text" id="username" placeholder="Логін">
             </div>
+            
             <div class="input-group">
                 <input type="password" id="password" placeholder="Пароль">
             </div>
+            
             <div class="auth-actions">
                 <button class="auth-btn primary" onclick="register()">Реєстрація</button>
                 <button class="auth-btn secondary" onclick="login()">Вхід</button>
             </div>
+            
             <div id="message"></div>
         </div>
     </div>
