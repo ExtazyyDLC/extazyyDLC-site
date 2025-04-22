@@ -1,94 +1,50 @@
-let users = JSON.parse(localStorage.getItem('extazyy_users')) || {};
-let currentUser = JSON.parse(localStorage.getItem('extazyy_currentUser')) || null;
-let keys = JSON.parse(localStorage.getItem('extazyy_keys')) || {};
+// Список начальных ключей
+let keys = JSON.parse(localStorage.getItem("extazyy_keys")) || [
+  "EXTAZYYDLC-ABC123-1D",
+  "EXTAZYYDLC-X9K8L1-7D",
+  "EXTAZYYDLC-QWERTY-30D",
+  "EXTAZYYDLC-ASDFGH-60D",
+  "EXTAZYYDLC-ZXCVBN-90D",
+  "EXTAZYYDLC-MNBVCX-365D",
+  "EXTAZYYDLC-PLMOKN-FOREVER"
+];
 
-function saveUsers() {
-    localStorage.setItem('extazyy_users', JSON.stringify(users));
-}
-
-function saveCurrentUser() {
-    localStorage.setItem('extazyy_currentUser', JSON.stringify(currentUser));
-}
-
+// Сохранение в localStorage
 function saveKeys() {
-    localStorage.setItem('extazyy_keys', JSON.stringify(keys));
+  localStorage.setItem("extazyy_keys", JSON.stringify(keys));
 }
 
-function showLoginForm() {
-    document.getElementById('auth-modal').classList.remove('hidden');
+// Отображение ключей
+function updateKeyList() {
+  const list = document.getElementById("keyList");
+  list.innerHTML = "";
+  keys.forEach(key => {
+    const li = document.createElement("li");
+    li.textContent = key;
+    list.appendChild(li);
+  });
 }
 
-function closeAuthModal() {
-    document.getElementById('auth-modal').classList.add('hidden');
-}
-
-function loginUser() {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-    const message = document.getElementById('auth-message');
-
-    if (users[username] && users[username].password === password) {
-        currentUser = { username, role: users[username].role };
-        saveCurrentUser();
-        message.textContent = 'Вход выполнен';
-        closeAuthModal();
-        document.getElementById('activation-form').classList.remove('hidden');
-    } else {
-        message.textContent = 'Неверный логин или пароль';
-    }
-}
-
-function registerUser() {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-    const message = document.getElementById('auth-message');
-
-    if (!users[username]) {
-        users[username] = { password, role: 'Участник' };
-        saveUsers();
-        message.textContent = 'Пользователь зарегистрирован';
-    } else {
-        message.textContent = 'Пользователь уже существует';
-    }
-}
-
+// Активация ключа
 function activateKey() {
-    const keyInput = document.getElementById('activation-key').value.trim();
-    const message = document.getElementById('message');
+  const inputKey = document.getElementById("keyInput").value.trim().toUpperCase();
+  const message = document.getElementById("message");
+  const downloadLink = document.getElementById("downloadLink");
 
-    if (!currentUser) {
-        message.innerHTML = '<p class="error">Сначала войдите в аккаунт.</p>';
-        return;
-    }
-
-    if (keys[keyInput] && (!keys[keyInput].used || keys[keyInput].usedBy === currentUser.username)) {
-        keys[keyInput].used = true;
-        keys[keyInput].usedBy = currentUser.username;
-        saveKeys();
-        message.innerHTML = '<p class="success">Ключ активирован. Доступ предоставлен.</p>';
-        document.getElementById('download-section').classList.remove('hidden');
-    } else {
-        message.innerHTML = '<p class="error">Неверный ключ или он уже использован другим пользователем.</p>';
-    }
-}
-
-// Примерная начальная загрузка ключей (только админ должен иметь интерфейс генерации)
-if (Object.keys(keys).length === 0) {
-    const durations = ['1D', '7D', '30D', '60D', '90D', '365D', 'FOREVER'];
-    durations.forEach(duration => {
-        for (let i = 0; i < 10; i++) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let randomPart = '';
-            for (let j = 0; j < 6; j++) {
-                randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            const key = `EXTAZYYDLC-${randomPart}-${duration}`;
-            keys[key] = { duration, used: false, usedBy: null };
-        }
-    });
+  const index = keys.indexOf(inputKey);
+  if (index !== -1) {
+    const duration = inputKey.split("-")[2];
+    const daysText = duration === "FOREVER" ? "навсегда" : `${parseInt(duration)} дней`;
+    keys.splice(index, 1); // Удалить ключ
     saveKeys();
+    updateKeyList();
+    message.innerHTML = `<p class="success">Ключ активирован! Доступ на ${daysText}.</p>`;
+    downloadLink.style.display = "inline-block";
+  } else {
+    message.innerHTML = `<p class="error">Неверный или уже использованный ключ!</p>`;
+    downloadLink.style.display = "none";
+  }
 }
 
-if (currentUser) {
-    document.getElementById('activation-form').classList.remove('hidden');
-}
+// Инициализация
+updateKeyList();
