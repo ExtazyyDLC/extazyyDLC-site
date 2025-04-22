@@ -86,17 +86,21 @@ h1, h2 {
     height: 100vh;
     background-color: #ffffff;
     flex-direction: column;
+    position: relative;
 }
 
-/* Анімація для букви "E" */
+/* Скрываем букву "E" на странице логина */
 .e-animation {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
     animation: moveE 2s infinite alternate;
+    position: absolute;
+    top: 20%;
 }
 
+/* Буква "E" */
 .e-letter {
     font-size: 100px;
     color: #0000FF;
@@ -123,4 +127,28 @@ h1, h2 {
     100% {
         background-position: 0% 50%;
     }
+}
+
+/* Стилі для кнопок в auth-menu */
+.auth-box button {
+    margin-top: 20px;
+}
+
+/* Стилі для кнопок в головному меню */
+.main-menu .button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.main-menu .button:hover {
+    background-color: #45a049;
+}
+
+/* Убираем букву "E" на странице авторизации */
+body.login-page .e-animation {
+    display: none;
 }
