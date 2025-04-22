@@ -97,7 +97,7 @@ h1, h2 {
     margin-top: 50px;
     animation: moveE 2s infinite alternate;
     position: absolute;
-    top: 20%;
+    top: 10%;
 }
 
 /* Буква "E" */

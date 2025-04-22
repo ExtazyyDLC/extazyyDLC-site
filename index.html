@@ -19,21 +19,34 @@
             <h2>Login / Register</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
-            <button onclick="login()" id="loginAction">Login</button>
-            <button onclick="register()" id="registerAction">Register</button>
+            <div class="auth-buttons">
+                <button onclick="login()" id="loginAction">Login</button>
+                <button onclick="register()" id="registerAction">Register</button>
+            </div>
             <p id="message"></p>
         </div>
     </div>
 
     <!-- Головне меню -->
     <div class="main-menu">
-        <h1>Welcome to ExtazyyDLC</h1>
-        <p>Private client for premium users.</p>
         <div class="e-animation">
             <span class="e-letter">E</span>
         </div>
-        <a href="login.html" class="button">Login to Cabinet</a>
+        <h1>Welcome to ExtazyyDLC</h1>
+        <p>Private client for premium users.</p>
+        <button class="button" id="openAuth">Login to Cabinet</button>
     </div>
+
+    <script>
+        // Відкрити форму при натисканні на кнопку
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            document.getElementById('authMenu').style.display = 'flex';
+        });
+
+        document.getElementById('openAuth').addEventListener('click', function () {
+            document.getElementById('authMenu').style.display = 'flex';
+        });
+    </script>
 
     <script src="script.js"></script>
 </body>
