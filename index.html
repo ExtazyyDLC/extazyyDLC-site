@@ -2,14 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExtazyyDLC</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+
+    <!-- Меню -->
+    <nav class="navbar">
+        <button id="loginBtn" class="login-btn">Login</button>
+    </nav>
+
+    <!-- Вікно для реєстрації / логіну -->
+    <div id="authMenu" class="auth-menu">
+        <div class="auth-box">
+            <h2>Login / Register</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()" id="loginAction">Login</button>
+            <button onclick="register()" id="registerAction">Register</button>
+            <p id="message"></p>
+        </div>
+    </div>
+
+    <!-- Головне меню -->
+    <div class="main-menu">
         <h1>Welcome to ExtazyyDLC</h1>
         <p>Private client for premium users.</p>
+        <div class="e-animation">
+            <span class="e-letter">E</span>
+        </div>
         <a href="login.html" class="button">Login to Cabinet</a>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
