@@ -1,0 +1,12 @@
+{
+    "EXTAZYYDLC-1234-7": {
+        "days": 7,
+        "activated": false,
+        "deviceId": null
+    },
+    "EXTAZYYDLC-5678-30": {
+        "days": 30,
+        "activated": true,
+        "deviceId": "dev-example"
+    }
+}
