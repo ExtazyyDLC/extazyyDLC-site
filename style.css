@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auth System</title>
     <style>
-        /* Глобальні стилі */
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #45a049;
@@ -19,10 +18,11 @@
             padding: 0;
             background: linear-gradient(45deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Навігація */
         .navbar {
             position: absolute;
             top: 20px;
@@ -48,7 +48,6 @@
             background: var(--secondary-color);
         }
 
-        /* Меню авторизації */
         .auth-menu {
             display: none;
             position: fixed;
@@ -69,15 +68,15 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             width: 320px;
-            transform: scale(0.95);
+            max-width: calc(100% - 40px);
+            margin: 20px;
             animation: popIn 0.3s ease-out forwards;
+            position: relative;
         }
 
         @keyframes popIn {
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .auth-box h2 {
@@ -89,7 +88,7 @@
 
         .input-group {
             margin-bottom: 15px;
-            position: relative;
+            width: 100%;
         }
 
         .input-group input {
@@ -111,6 +110,7 @@
             display: flex;
             gap: 10px;
             margin-top: 20px;
+            width: 100%;
         }
 
         .auth-btn {
@@ -139,7 +139,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        /* Повідомлення */
         #message {
             padding: 12px;
             border-radius: 6px;
@@ -147,6 +146,7 @@
             display: none;
             text-align: center;
             font-size: 13px;
+            width: 100%;
         }
 
         #message.success {
@@ -161,13 +161,13 @@
             border: 1px solid #ef9a9a;
         }
 
-        /* Анімація букви E */
         .e-animation {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             animation: float 3s ease-in-out infinite;
+            z-index: -1;
         }
 
         @keyframes float {
@@ -185,28 +185,29 @@
 
         @media (max-width: 480px) {
             .auth-box {
-                width: 90%;
                 padding: 20px;
             }
             
             .e-letter {
                 font-size: 60px;
             }
+            
+            .login-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Кнопка відкриття меню -->
     <nav class="navbar">
         <button class="login-btn">Вхід / Реєстрація</button>
     </nav>
 
-    <!-- Анімація букви E -->
     <div class="e-animation">
         <div class="e-letter">E</div>
     </div>
 
-    <!-- Меню авторизації -->
     <div class="auth-menu" id="authMenu">
         <div class="auth-box">
             <h2>Авторизація</h2>
@@ -225,19 +226,16 @@
     </div>
 
     <script>
-        // Управління меню
         document.querySelector('.login-btn').addEventListener('click', () => {
             document.getElementById('authMenu').style.display = 'flex';
         });
 
-        // Закриття меню при кліку поза формою
         window.onclick = function(event) {
             if (event.target == document.getElementById('authMenu')) {
                 document.getElementById('authMenu').style.display = 'none';
             }
         }
 
-        // Реєстрація
         function register() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -263,7 +261,6 @@
             }
         }
 
-        // Логін
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
