@@ -1,12 +1,20 @@
 {
-    "EXTAZYYDLC-1234-7": {
-        "days": 7,
+    "EXTAZYYDLC-ABC123": {
         "activated": false,
-        "deviceId": null
+        "username": "",
+        "deviceId": "",
+        "days": 30
     },
-    "EXTAZYYDLC-5678-30": {
-        "days": 30,
+    "EXTAZYYDLC-DEF456": {
+        "activated": false,
+        "username": "",
+        "deviceId": "",
+        "days": 15
+    },
+    "EXTAZYYDLC-GHI789": {
         "activated": true,
-        "deviceId": "dev-example"
+        "username": "user1",
+        "deviceId": "dev-12345",
+        "days": 60
     }
 }
