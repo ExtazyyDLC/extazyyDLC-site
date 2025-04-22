@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Активация ключа</title>
+  <meta charset="UTF-8">
+  <title>ExtazyyDLC -- Активация ключа</title>
   <style>
     body { font-family: Arial; background: #f4f4f4; padding: 20px; }
     input, button { padding: 10px; margin: 10px 0; width: 100%; }
     #downloadLink { display: none; margin-top: 20px; }
     .success { color: green; }
     .error { color: red; }
-    .container { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+    .container { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
   </style>
 </head>
 <body>
@@ -18,12 +18,7 @@
     <input type="text" id="keyInput" placeholder="Введите ключ" />
     <button onclick="activateKey()">Активировать</button>
     <div id="message"></div>
-    <a id="downloadLink" href="https://example.com/yourfile.zip" download>Скачать файл</a>
-  </div>
-
-  <div class="container">
-    <h3>Список доступных ключей</h3>
-    <ul id="keyList"></ul>
+    <a id="downloadLink" href="https://example.com/yourfile.zip" download>Скачать клиент</a>
   </div>
 
   <script src="scripts.js"></script>
