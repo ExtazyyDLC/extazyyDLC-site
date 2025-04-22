@@ -4,9 +4,12 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #f0f0f0;
+    background: linear-gradient(45deg, #B8B8B8, #F0F0F0);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
 }
 
+/* Заголовки */
 h1, h2 {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -106,5 +109,18 @@ h1, h2 {
     }
     100% {
         transform: translateY(20px);
+    }
+}
+
+/* Анімація фону */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
