@@ -1,278 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auth System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extazyy Login</title>
   <style>
-    :root {
-      --primary-color: #4CAF50;
-      --secondary-color: #45a049;
-      --error-color: #c62828;
-      --success-color: #2e7d32;
-    }
-
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(45deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
+      background: #f2f2f2;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .navbar {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
     }
 
     .login-btn {
-      background: var(--primary-color);
+      background: #4CAF50;
       color: white;
       padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
       border: none;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .login-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      background: var(--secondary-color);
-    }
-
-    .auth-menu {
+    .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 999;
+      justify-content: center;
       opacity: 0;
-      transform: scale(0.95);
-      pointer-events: none;
-      transition: all 0.3s ease;
+      visibility: hidden;
+      transition: 0.3s ease;
     }
 
-    .auth-menu.show {
+    .overlay.show {
       opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 260px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: scale(0.9);
+      transition: 0.3s ease;
+    }
+
+    .overlay.show .modal {
       transform: scale(1);
-      pointer-events: all;
     }
 
-    .auth-box {
-      background: white;
-      padding: 18px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      width: 240px;
-      max-width: calc(100% - 40px);
-      margin: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .e-letter {
-      font-size: 48px;
-      color: var(--primary-color);
-      margin-bottom: 6px;
-      animation: float 2s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .welcome-header h1 {
-      font-size: 15px;
-      margin: 0 0 10px 0;
-      color: #333;
-    }
-
-    .input-group {
-      margin-bottom: 10px;
-    }
-
-    .input-group input {
+    input {
       width: 100%;
-      padding: 6px 10px;
-      border: 1px solid #e0e0e0;
+      padding: 8px;
+      margin: 8px 0;
       border-radius: 5px;
-      font-size: 12px;
-      transition: all 0.2s ease;
+      border: 1px solid #ccc;
     }
 
-    .input-group input:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px rgba(76,175,80,0.1);
-      outline: none;
-    }
-
-    .auth-actions {
+    .btn-group {
       display: flex;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 10px;
     }
 
-    .auth-btn {
+    .btn-group button {
       flex: 1;
-      padding: 6px;
+      padding: 8px;
       border: none;
       border-radius: 5px;
-      font-size: 12px;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
 
-    .auth-btn.primary {
-      background: var(--primary-color);
+    .register {
+      background: #ddd;
+    }
+
+    .login {
+      background: #4CAF50;
       color: white;
-    }
-
-    .auth-btn.secondary {
-      background: #f0f0f0;
-      color: #666;
-    }
-
-    .auth-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     #message {
-      padding: 8px;
-      border-radius: 5px;
       margin-top: 10px;
-      display: none;
+      font-size: 14px;
       text-align: center;
-      font-size: 11px;
-      width: 100%;
-    }
-
-    #message.success {
-      background: #e8f5e9;
-      color: var(--success-color);
-      border: 1px solid #a5d6a7;
     }
 
     #message.error {
-      background: #ffebee;
-      color: var(--error-color);
-      border: 1px solid #ef9a9a;
+      color: red;
     }
 
-    @media (max-width: 480px) {
-      .auth-box {
-        padding: 16px;
-      }
-
-      .login-btn {
-        padding: 8px 16px;
-        font-size: 12px;
-      }
+    #message.success {
+      color: green;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <button class="login-btn">Вхід / Реєстрація</button>
-  </nav>
 
-  <div class="auth-menu" id="authMenu">
-    <div class="auth-box">
-      <div class="welcome-header">
-        <div class="e-letter">E</div>
-        <h1>ExtazyyDLC Welcome</h1>
+  <button class="login-btn" onclick="showModal()">Вхід / Реєстрація</button>
+
+  <div class="overlay" id="authModal" onclick="hideModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3 style="text-align: center;">ExtazyyDLC</h3>
+      <input type="text" id="username" placeholder="Логін">
+      <input type="password" id="password" placeholder="Пароль">
+      <div class="btn-group">
+        <button class="register" onclick="register()">Реєстрація</button>
+        <button class="login" onclick="login()">Вхід</button>
       </div>
-
-      <div class="input-group">
-        <input type="text" id="username" placeholder="Логін" />
-      </div>
-
-      <div class="input-group">
-        <input type="password" id="password" placeholder="Пароль" />
-      </div>
-
-      <div class="auth-actions">
-        <button class="auth-btn primary" onclick="register()">Реєстрація</button>
-        <button class="auth-btn secondary" onclick="login()">Вхід</button>
-      </div>
-
       <div id="message"></div>
     </div>
   </div>
 
   <script>
-    const loginBtn = document.querySelector('.login-btn');
-    const authMenu = document.getElementById('authMenu');
+    function showModal() {
+      document.getElementById("authModal").classList.add("show");
+    }
 
-    loginBtn.addEventListener('click', () => {
-      authMenu.classList.add('show');
-    });
-
-    window.onclick = function(event) {
-      if (event.target === authMenu) {
-        authMenu.classList.remove('show');
+    function hideModal(e) {
+      if (e.target.classList.contains('overlay')) {
+        e.target.classList.remove("show");
       }
     }
 
     function register() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const message = document.getElementById('message');
+      const u = document.getElementById("username").value;
+      const p = document.getElementById("password").value;
+      const msg = document.getElementById("message");
 
-      if (!username || !password) {
-        message.innerText = 'Заповніть всі поля!';
-        message.className = 'error';
-        message.style.display = 'block';
+      if (!u || !p) {
+        msg.textContent = "Заповніть всі поля!";
+        msg.className = "error";
         return;
       }
 
-      if (!localStorage.getItem('user_' + username)) {
-        localStorage.setItem('user_' + username, password);
-        message.innerText = 'Реєстрація успішна!';
-        message.className = 'success';
-        message.style.display = 'block';
-        setTimeout(() => location.reload(), 1500);
-      } else {
-        message.innerText = 'Користувач вже існує!';
-        message.className = 'error';
-        message.style.display = 'block';
+      if (localStorage.getItem("user_" + u)) {
+        msg.textContent = "Користувач вже існує!";
+        msg.className = "error";
+        return;
       }
+
+      localStorage.setItem("user_" + u, p);
+      msg.textContent = "Успішна реєстрація!";
+      msg.className = "success";
     }
 
     function login() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const storedPassword = localStorage.getItem('user_' + username);
-      const message = document.getElementById('message');
+      const u = document.getElementById("username").value;
+      const p = document.getElementById("password").value;
+      const msg = document.getElementById("message");
 
-      if (storedPassword && storedPassword === password) {
-        localStorage.setItem('extazyyUser', username);
-        message.innerText = 'Успішний вхід!';
-        message.className = 'success';
-        message.style.display = 'block';
-        setTimeout(() => window.location.href = 'cabinet.html', 1000);
+      const stored = localStorage.getItem("user_" + u);
+      if (stored && stored === p) {
+        msg.textContent = "Вхід успішний!";
+        msg.className = "success";
+        localStorage.setItem("extazyyUser", u);
+        setTimeout(() => {
+          window.location.href = "cabinet.html";
+        }, 1000);
       } else {
-        message.innerText = 'Невірні дані!';
-        message.className = 'error';
-        message.style.display = 'block';
+        msg.textContent = "Невірний логін або пароль!";
+        msg.className = "error";
       }
     }
   </script>
+
 </body>
 </html>
