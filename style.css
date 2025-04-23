@@ -1,63 +1,71 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #666;
+  background: #5f5f67;
   color: #fff;
 }
 
-header {
-  background: #111;
-  color: #fff;
-  padding: 10px 20px;
+.header {
+  background-color: #000;
   display: flex;
   justify-content: space-between;
+  padding: 15px 30px;
   align-items: center;
 }
 
 .logo {
+  font-size: 20px;
+}
+
+.e-letter {
+  animation: blink 1s infinite;
+  color: #00bfff;
   font-size: 24px;
+  margin-left: 5px;
 }
 
-.e-anim {
-  color: #00f;
-  animation: pulse 1.5s infinite ease-in-out;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); color: #00f; }
-  50% { transform: scale(1.3); color: #0ff; }
-  100% { transform: scale(1); color: #00f; }
-}
-
-button {
+.login-button {
+  background-color: #888;
+  color: #fff;
   padding: 8px 16px;
-  background: #999;
   border: none;
   border-radius: 5px;
-  color: #fff;
   cursor: pointer;
 }
 
-.auth-modal {
-  position: fixed;
-  top: 20%;
+.login-form {
+  position: absolute;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
-  background: #fff;
-  color: #000;
+  background: white;
   padding: 20px;
-  border-radius: 10px;
-  z-index: 1000;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  transition: all 0.3s ease;
 }
 
-.auth-box input {
-  display: block;
-  margin: 10px auto;
+.login-form input {
   padding: 10px;
-  width: 90%;
-  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.login-form button {
+  background-color: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
   border-radius: 5px;
 }
 
@@ -66,8 +74,12 @@ button {
 }
 
 footer {
-  text-align: center;
-  font-size: 12px;
+  position: fixed;
+  bottom: 5px;
+  left: 10px;
+}
+
+.mojang-note {
   color: #ccc;
-  margin-top: 40px;
+  font-size: 12px;
 }
