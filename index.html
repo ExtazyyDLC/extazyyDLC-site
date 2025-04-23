@@ -1,53 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExtazyyDLC</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extazyy Client</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="navbar">
+    <button onclick="toggleAuth()">Login / Register</button>
+  </div>
 
-    <!-- Меню -->
-    <nav class="navbar">
-        <button id="loginBtn" class="login-btn">Login</button>
-    </nav>
+  <div class="main">
+    <div class="letter-e">E</div>
+    <div class="title">Клиент ExtazyyDLC</div>
+  </div>
 
-    <!-- Вікно для реєстрації / логіну -->
-    <div id="authMenu" class="auth-menu">
-        <div class="auth-box">
-            <h2>Login / Register</h2>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <div class="auth-buttons">
-                <button onclick="login()" id="loginAction">Login</button>
-                <button onclick="register()" id="registerAction">Register</button>
-            </div>
-            <p id="message"></p>
-        </div>
+  <div class="overlay" id="authOverlay" onclick="closeOnOutside(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div id="authBox">
+        <input type="text" id="username" placeholder="Логин">
+        <input type="password" id="password" placeholder="Пароль">
+        <button class="login" onclick="handleLogin()">Вход / Регистрация</button>
+        <div class="message" id="authMessage"></div>
+      </div>
+      <div id="keyBox" style="display:none;">
+        <input type="text" id="keyInput" placeholder="Введите ключ">
+        <button class="login" onclick="saveKey()">Сохранить ключ</button>
+        <button class="download" id="downloadBtn" onclick="downloadClient()">Скачать клиент</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Головне меню -->
-    <div class="main-menu">
-        <div class="e-animation">
-            <span class="e-letter">E</span>
-        </div>
-        <h1>Welcome to ExtazyyDLC</h1>
-        <p>Private client for premium users.</p>
-        <button class="button" id="openAuth">Login to Cabinet</button>
-    </div>
-
-    <script>
-        // Відкрити форму при натисканні на кнопку
-        document.getElementById('loginBtn').addEventListener('click', function () {
-            document.getElementById('authMenu').style.display = 'flex';
-        });
-
-        document.getElementById('openAuth').addEventListener('click', function () {
-            document.getElementById('authMenu').style.display = 'flex';
-        });
-    </script>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
