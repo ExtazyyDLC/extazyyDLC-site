@@ -1,94 +1,73 @@
-
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(120deg, #2980b9, #6dd5fa);
-    color: #333;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #666;
+  color: #fff;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #005c99;
-    color: white;
+header {
+  background: #111;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
+.logo {
+  font-size: 24px;
 }
 
-.e-letter {
-    font-size: 32px;
-    animation: float 2s infinite;
-    color: #00ccff;
-    margin-right: 10px;
+.e-anim {
+  color: #00f;
+  animation: pulse 1.5s infinite ease-in-out;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+@keyframes pulse {
+  0% { transform: scale(1); color: #00f; }
+  50% { transform: scale(1.3); color: #0ff; }
+  100% { transform: scale(1); color: #00f; }
 }
 
-.client-name {
-    font-size: 20px;
+button {
+  padding: 8px 16px;
+  background: #999;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
 }
 
-.login-btn {
-    padding: 8px 16px;
-    background-color: #00ccff;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.auth-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
-}
-
-.auth-box {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
+.auth-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .auth-box input {
-    margin: 8px 0;
-    padding: 8px;
-    width: 80%;
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.auth-actions button {
-    margin: 5px;
-    padding: 8px 16px;
+.hidden {
+  display: none;
 }
 
-.footer {
-    text-align: center;
-    padding: 10px;
-    background: #003d66;
-    color: white;
-}
-
-.download-btn {
-    display: inline-block;
-    margin-top: 15px;
-    background: #008CBA;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+  margin-top: 40px;
 }

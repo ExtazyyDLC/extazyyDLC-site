@@ -1,46 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extazyy Client</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EXCELLENTDATA</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo-container">
-            <div class="e-letter">E</div>
-            <span class="client-name">Extazyy Client</span>
-        </div>
-        <button class="login-btn" onclick="toggleAuth()">Вход / Регистрация</button>
-    </nav>
+  <header>
+    <div class="logo"><span class="e-anim">E</span>XCELLENTDATA</div>
+    <button id="loginBtn">Login</button>
+  </header>
 
-    <div class="auth-menu" id="authMenu">
-        <div class="auth-box">
-            <h2>Вход в аккаунт</h2>
-            <input type="text" id="username" placeholder="Логин">
-            <input type="password" id="password" placeholder="Пароль">
-            <div class="auth-actions">
-                <button onclick="register()">Регистрация</button>
-                <button onclick="login()">Вход</button>
-            </div>
-            <div id="message"></div>
-        </div>
+  <div class="auth-modal hidden" id="authModal">
+    <div class="auth-box">
+      <input type="text" id="username" placeholder="Логин" />
+      <input type="password" id="password" placeholder="Пароль" />
+      <button id="authSubmit">Вход / Регистрация</button>
+      <input type="text" id="licenseKey" placeholder="Введите ключ" />
+      <button id="activateKey">Активировать ключ</button>
+      <button id="downloadBtn" class="hidden">Скачать</button>
     </div>
+  </div>
 
-    <div class="cabinet" id="cabinet" style="display:none;">
-        <h2>Добро пожаловать, <span id="userDisplay"></span></h2>
-        <p>Введите ключ активации:</p>
-        <input type="text" id="licenseKey" placeholder="Лицензионный ключ">
-        <button onclick="activateKey()">Активировать</button>
-        <div id="keyStatus"></div>
-        <a href="#" class="download-btn" id="downloadBtn" style="display:none;">Скачать</a>
-    </div>
+  <footer>
+    <p>Этот проект не связан с Mojang. Все права принадлежат их владельцам.</p>
+  </footer>
 
-    <footer class="footer">
-        <p>Этот чит не связан с Mojang. Использование на свой страх и риск.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

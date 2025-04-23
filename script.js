@@ -1,60 +1,43 @@
+const loginBtn = document.getElementById("loginBtn");
+const authModal = document.getElementById("authModal");
+const authSubmit = document.getElementById("authSubmit");
+const activateKey = document.getElementById("activateKey");
+const downloadBtn = document.getElementById("downloadBtn");
 
-function toggleAuth() {
-    document.getElementById("authMenu").style.display = "flex";
-}
+loginBtn.addEventListener("click", () => {
+  authModal.classList.remove("hidden");
+});
 
-function register() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-    const message = document.getElementById("message");
+authSubmit.addEventListener("click", () => {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  if (username && password) {
+    localStorage.setItem("account", JSON.stringify({ username, password }));
+    alert("Успешный вход!");
+  }
+});
 
-    if (!user || !pass) {
-        message.innerText = "Заполните все поля!";
-        return;
-    }
+activateKey.addEventListener("click", () => {
+  const key = document.getElementById("licenseKey").value.trim();
+  const savedAccount = JSON.parse(localStorage.getItem("account"));
+  const keys = JSON.parse(localStorage.getItem("usedKeys") || "{}");
 
-    if (!localStorage.getItem("user_" + user)) {
-        localStorage.setItem("user_" + user, pass);
-        message.innerText = "Успешная регистрация!";
-    } else {
-        message.innerText = "Пользователь уже существует!";
-    }
-}
+  if (!savedAccount) {
+    alert("Сначала войдите в аккаунт!");
+    return;
+  }
 
-function login() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-    const message = document.getElementById("message");
-
-    if (localStorage.getItem("user_" + user) === pass) {
-        localStorage.setItem("extazyyUser", user);
-        document.getElementById("authMenu").style.display = "none";
-        document.getElementById("cabinet").style.display = "block";
-        document.getElementById("userDisplay").innerText = user;
-    } else {
-        message.innerText = "Неверные данные!";
-    }
-}
-
-function activateKey() {
-    const key = document.getElementById("licenseKey").value;
-    const user = localStorage.getItem("extazyyUser");
-    const status = document.getElementById("keyStatus");
-
-    const usedKey = localStorage.getItem("used_" + key);
-    if (!key) {
-        status.innerText = "Введите ключ!";
-        return;
-    }
-
-    if (!usedKey) {
-        localStorage.setItem("used_" + key, user);
-        status.innerText = "Ключ активирован!";
-        document.getElementById("downloadBtn").style.display = "inline-block";
-    } else if (usedKey === user) {
-        status.innerText = "Ключ уже активирован!";
-        document.getElementById("downloadBtn").style.display = "inline-block";
-    } else {
-        status.innerText = "Ключ уже используется другим пользователем!";
-    }
-}
+  fetch("keys.json")
+    .then((res) => res.json())
+    .then((validKeys) => {
+      if (validKeys[key] && !keys[key]) {
+        keys[key] = savedAccount.username;
+        localStorage.setItem("usedKeys", JSON.stringify(keys));
+        localStorage.setItem("activatedKey", key);
+        downloadBtn.classList.remove("hidden");
+        alert("Ключ активирован!");
+      } else {
+        alert("Ключ не существует или уже использован.");
+      }
+    });
+});

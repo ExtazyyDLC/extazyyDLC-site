@@ -1,52 +1,12 @@
 {
-    "EXCELLENTDATA-UGJH4D": {
-        "valid_days": 7,
-        "expires_at": "2025-04-30T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-193Z8X": {
-        "valid_days": 60,
-        "expires_at": "2025-06-22T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-MBZY4I": {
-        "valid_days": 30,
-        "expires_at": "2025-05-23T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-WG59X1": {
-        "valid_days": 7,
-        "expires_at": "2025-04-30T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-8WG71B": {
-        "valid_days": 30,
-        "expires_at": "2025-05-23T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-GRRIAU": {
-        "valid_days": 30,
-        "expires_at": "2025-05-23T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-9H3PHU": {
-        "valid_days": 7,
-        "expires_at": "2025-04-30T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-FIM763": {
-        "valid_days": 1,
-        "expires_at": "2025-04-24T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-6NLBC1": {
-        "valid_days": 30,
-        "expires_at": "2025-05-23T10:09:14.024998Z",
-        "used_by": null
-    },
-    "EXCELLENTDATA-J63AO6": {
-        "valid_days": 60,
-        "expires_at": "2025-06-22T10:09:14.024998Z",
-        "used_by": null
-    }
+  "EXCELLENTDATA-1D-0001": "1",
+  "EXCELLENTDATA-1D-0002": "1",
+  "EXCELLENTDATA-7D-0001": "7",
+  "EXCELLENTDATA-7D-0002": "7",
+  "EXCELLENTDATA-30D-0001": "30",
+  "EXCELLENTDATA-30D-0002": "30",
+  "EXCELLENTDATA-60D-0001": "60",
+  "EXCELLENTDATA-60D-0002": "60",
+  "EXCELLENTDATA-60D-0003": "60",
+  "EXCELLENTDATA-30D-0003": "30"
 }
