@@ -1,79 +1,60 @@
 
-const overlay = document.getElementById('authOverlay');
-const authBox = document.getElementById('authBox');
-const keyBox = document.getElementById('keyBox');
-const message = document.getElementById('authMessage');
-const downloadBtn = document.getElementById('downloadBtn');
-
 function toggleAuth() {
-  overlay.classList.add('show');
+    document.getElementById("authMenu").style.display = "flex";
 }
 
-function closeOnOutside(e) {
-  if (e.target === overlay) {
-    overlay.classList.remove('show');
-  }
-}
+function register() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const message = document.getElementById("message");
 
-function handleLogin() {
-  const user = document.getElementById('username').value.trim();
-  const pass = document.getElementById('password').value.trim();
-
-  if (!user || !pass) {
-    message.textContent = 'Заполните все поля!';
-    return;
-  }
-
-  const stored = localStorage.getItem('user_' + user);
-
-  if (!stored) {
-    localStorage.setItem('user_' + user, pass);
-    message.style.color = 'green';
-    message.textContent = 'Регистрация успешна!';
-  } else if (stored === pass) {
-    message.style.color = 'green';
-    message.textContent = 'Вход успешен!';
-  } else {
-    message.style.color = 'red';
-    message.textContent = 'Неверный пароль!';
-    return;
-  }
-
-  setTimeout(() => {
-    authBox.style.display = 'none';
-    keyBox.style.display = 'block';
-
-    const savedKey = localStorage.getItem('key_' + user);
-    if (savedKey) {
-      document.getElementById('keyInput').value = savedKey;
-      downloadBtn.style.display = 'block';
+    if (!user || !pass) {
+        message.innerText = "Заполните все поля!";
+        return;
     }
-  }, 1000);
+
+    if (!localStorage.getItem("user_" + user)) {
+        localStorage.setItem("user_" + user, pass);
+        message.innerText = "Успешная регистрация!";
+    } else {
+        message.innerText = "Пользователь уже существует!";
+    }
 }
 
-function saveKey() {
-  const key = document.getElementById('keyInput').value.trim();
-  const user = document.getElementById('username').value.trim();
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const message = document.getElementById("message");
 
-  let usedBy = localStorage.getItem('key_used_by_' + key);
-  if (usedBy && usedBy !== user) {
-    alert("Ключ уже активирован на другом аккаунте!");
-    return;
-  }
-
-  localStorage.setItem('key_' + user, key);
-  localStorage.setItem('key_used_by_' + key, user);
-
-  // Временное действие: через 10 минут ключ удаляется
-  setTimeout(() => {
-    localStorage.removeItem('key_' + user);
-    localStorage.removeItem('key_used_by_' + key);
-  }, 10 * 60 * 1000);
-
-  alert("Ключ сохранён!");
-  downloadBtn.style.display = 'block';
+    if (localStorage.getItem("user_" + user) === pass) {
+        localStorage.setItem("extazyyUser", user);
+        document.getElementById("authMenu").style.display = "none";
+        document.getElementById("cabinet").style.display = "block";
+        document.getElementById("userDisplay").innerText = user;
+    } else {
+        message.innerText = "Неверные данные!";
+    }
 }
 
-function downloadClient() {
-  alert("Началась загрузка клиента (заглушка)");
+function activateKey() {
+    const key = document.getElementById("licenseKey").value;
+    const user = localStorage.getItem("extazyyUser");
+    const status = document.getElementById("keyStatus");
+
+    const usedKey = localStorage.getItem("used_" + key);
+    if (!key) {
+        status.innerText = "Введите ключ!";
+        return;
+    }
+
+    if (!usedKey) {
+        localStorage.setItem("used_" + key, user);
+        status.innerText = "Ключ активирован!";
+        document.getElementById("downloadBtn").style.display = "inline-block";
+    } else if (usedKey === user) {
+        status.innerText = "Ключ уже активирован!";
+        document.getElementById("downloadBtn").style.display = "inline-block";
+    } else {
+        status.innerText = "Ключ уже используется другим пользователем!";
+    }
 }

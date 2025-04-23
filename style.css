@@ -1,113 +1,94 @@
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #d3cce3, #e9e4f0);
-  height: 100vh;
-  overflow: hidden;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #2980b9, #6dd5fa);
+    color: #333;
 }
 
 .navbar {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #005c99;
+    color: white;
 }
 
-.navbar button {
-  padding: 10px 20px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-}
-
-.letter-e {
-  font-size: 80px;
-  color: #4CAF50;
-  animation: float 2s ease-in-out infinite;
-  font-weight: bold;
+.e-letter {
+    font-size: 32px;
+    animation: float 2s infinite;
+    color: #00ccff;
+    margin-right: 10px;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
-.title {
-  font-size: 32px;
-  color: #333;
-  margin-top: 10px;
+.client-name {
+    font-size: 20px;
 }
 
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.3s;
+.login-btn {
+    padding: 8px 16px;
+    background-color: #00ccff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.overlay.show {
-  visibility: visible;
-  opacity: 1;
+.auth-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
 }
 
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 280px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  text-align: center;
+.auth-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
 }
 
-.modal input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.auth-box input {
+    margin: 8px 0;
+    padding: 8px;
+    width: 80%;
 }
 
-.modal button {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.auth-actions button {
+    margin: 5px;
+    padding: 8px 16px;
 }
 
-.login {
-  background: #4CAF50;
-  color: white;
+.footer {
+    text-align: center;
+    padding: 10px;
+    background: #003d66;
+    color: white;
 }
 
-.download {
-  background: #2196F3;
-  color: white;
-  margin-top: 10px;
-  display: none;
-}
-
-.message {
-  font-size: 13px;
-  margin-top: 5px;
-  color: red;
+.download-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
 }
