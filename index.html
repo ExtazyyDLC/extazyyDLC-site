@@ -7,28 +7,36 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="logo"><span class="e-letter">E</span>XCELLENTDATA</div>
-    <button id="loginBtn" class="login-button">Login</button>
+  <header>
+    <div class="logo">E</div>
+    <nav>
+      <button id="loginBtn">Login</button>
+      <button id="registerBtn">Register</button>
+    </nav>
   </header>
 
   <main>
-    <div id="loginForm" class="login-form hidden">
-      <h2>Вход / Регистрация</h2>
+    <h1 class="title">Клиент EXCELLENTDATA</h1>
+    <div id="authForm" class="modal hidden">
       <input type="text" id="username" placeholder="Логин" />
       <input type="password" id="password" placeholder="Пароль" />
-      <input type="text" id="keyInput" placeholder="Введите ключ" />
-      <button onclick="login()">Войти</button>
+      <button id="authSubmit">Войти</button>
     </div>
 
-    <div id="downloadSection" class="hidden download-section">
-      <p>Ключ активирован успешно.</p>
-      <button class="download-btn">Скачать</button>
+    <div id="dashboard" class="hidden">
+      <div class="user-info">Привет, <span id="userNickname"></span></div>
+      <div class="activation">
+        <input type="text" id="keyInput" placeholder="Введите ключ" />
+        <button id="activateBtn">Активировать</button>
+      </div>
+      <div id="downloadSection" class="hidden">
+        <button id="downloadBtn">Скачать</button>
+      </div>
     </div>
   </main>
 
   <footer>
-    <p class="mojang-note">* Мы никак не связаны с Mojang или Minecraft</p>
+    <p>Этот проект никак не связан с Mojang AB</p>
   </footer>
 
   <script src="script.js"></script>
