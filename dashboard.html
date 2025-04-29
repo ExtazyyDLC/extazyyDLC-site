@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Кабинет — Extazyy Client</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Личный кабинет</h2>
+    <p id="welcome"></p>
+    <input type="text" id="keyInput" placeholder="Введите ключ">
+    <button onclick="activateKey()">Активировать</button>
+    <p id="keyStatus"></p>
+    <a id="downloadLink" href="client.zip" download style="display:none;">Скачать клиент</a>
+    <button onclick="logout()">Выйти</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
