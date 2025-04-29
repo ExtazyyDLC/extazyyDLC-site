@@ -1,6 +1,9 @@
 const keysDB = {
-  "EXTAZYYDLC-1234-7": { days: 7 },
-  "EXTAZYYDLC-4321-30": { days: 30 }
+  "EXTAZYYDLC-1234-7": { days: 3, usedBy: null },
+  "EXTAZYYDLC-0601-30": { days: 30, usedBy: null },
+  "EXTAZYYDLC-kL7F-30": { days: 30, usedBy: null },
+  "EXTAZYYDLC-EASY-90": { days: 90, usedBy: null },
+  "EXTAZYYDLC-THka-30": { days: 30, usedBy: null }
 };
 
 function login() {
@@ -28,8 +31,16 @@ function checkLogin() {
 function activateKey() {
   const input = document.getElementById("keyInput").value.trim();
   const keyStatus = document.getElementById("keyStatus");
-  if (!keysDB[input]) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const keyData = keysDB[input];
+
+  if (!keyData) {
     keyStatus.textContent = "Неверный ключ!";
+    return;
+  }
+
+  if (keyData.usedBy && keyData.usedBy !== user.username) {
+    keyStatus.textContent = `Ключ уже активирован пользователем ${keyData.usedBy}`;
     return;
   }
 
@@ -39,9 +50,11 @@ function activateKey() {
     return;
   }
 
-  const expiry = Date.now() + keysDB[input].days * 86400000;
+  // Активируем ключ
+  const expiry = Date.now() + keyData.days * 86400000;
   localStorage.setItem("activatedKey", input);
   localStorage.setItem("expiry", expiry);
+  keysDB[input].usedBy = user.username; // ← Запоминаем, кто использовал ключ (локально)
   keyStatus.textContent = `Ключ активирован! Действует до ${new Date(expiry).toLocaleDateString()}`;
   document.getElementById("downloadLink").style.display = "block";
 }
